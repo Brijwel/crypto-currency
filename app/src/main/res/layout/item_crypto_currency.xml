@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="cryptoCurrency"
+            type="com.brijwel.cryptocurrency.model.CryptoCurrency" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:gravity="center"
+            android:minEms="2"
+            android:text="@{String.valueOf(cryptoCurrency.rank)}"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/currencyLogo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/currencyLogo"
+            tools:text="1" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/currencyLogo"
+            android:layout_width="25dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintStart_toEndOf="@+id/rank"
+            app:layout_constraintTop_toTopOf="parent"
+            app:setImage="@{cryptoCurrency.logoUrl}"
+            app:shapeAppearanceOverlay="@style/ImageView.Circle"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/currencyName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="@{cryptoCurrency.name}"
+            android:textColor="?colorOnPrimary"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/currencyLogo"
+            app:layout_constraintEnd_toStartOf="@+id/currencyPrice"
+            app:layout_constraintStart_toEndOf="@+id/currencyLogo"
+            app:layout_constraintTop_toTopOf="@+id/currencyLogo"
+            tools:text="BitCoin" />
+
+
+        <TextView
+            android:id="@+id/currencyPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:textColor="?colorOnPrimary"
+            android:textSize="16sp"
+            android:gravity="end"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/currencyLogo"
+            app:layout_constraintEnd_toStartOf="@+id/priceChangePercentage"
+            app:layout_constraintTop_toTopOf="@+id/currencyLogo"
+            app:setPrice="@{cryptoCurrency.priceUsd}"
+            tools:text="$5,422.90" />
+
+        <TextView
+            android:id="@+id/priceChangePercentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:textColor="@color/colorNegative"
+            android:textSize="14sp"
+            android:minEms="3"
+            android:gravity="end"
+            app:layout_constraintBottom_toBottomOf="@+id/currencyLogo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/currencyLogo"
+            app:setPercentage="@{cryptoCurrency.changePercent24Hr}"
+            tools:text="-1.24%" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
