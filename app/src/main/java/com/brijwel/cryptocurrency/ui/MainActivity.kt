@@ -72,10 +72,7 @@ class MainActivity : AppCompatActivity() {
                 viewModel.getCryptoCurrencyData(editable.toString())
                 binding.cryptoCurrencyRecyclerView.scrollToPosition(0)
             }
-
         })
-
-
 
         viewModel.errorMessage.observe(this) {
             Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()

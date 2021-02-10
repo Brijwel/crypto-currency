@@ -21,10 +21,10 @@ interface CryptoCurrencyDao {
     suspend fun delete(ids: List<String>)
 
     @Query("SELECT * FROM CryptoCurrency ORDER BY rank ")
-    fun getAllCryptoCurrency(): LiveData<List<CryptoCurrency>>
+    fun getCryptoCurrencies(): LiveData<List<CryptoCurrency>>
 
     @Query("SELECT * FROM CryptoCurrency WHERE name like '%' || :searchQuery || '%' ORDER BY rank ")
-    fun getAllCryptoCurrency(searchQuery: String): LiveData<List<CryptoCurrency>>
+    fun getCryptoCurrencies(searchQuery: String): LiveData<List<CryptoCurrency>>
 
     @Query("SELECT SUM(marketCapUsd) FROM  CryptoCurrency")
     fun getGlobalMarketCap(): LiveData<BigDecimal?>

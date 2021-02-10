@@ -17,9 +17,9 @@ class CryptoCurrencyRepository(
 
     suspend fun delete(ids: List<String>) = currencyDao.delete(ids)
 
-    fun getAllCryptoCurrency() = currencyDao.getAllCryptoCurrency()
+    fun getCryptoCurrencies() = currencyDao.getCryptoCurrencies()
 
-    fun getAllCryptoCurrency(searchQuery:String) = currencyDao.getAllCryptoCurrency(searchQuery)
+    fun getCryptoCurrencies(searchQuery:String) = currencyDao.getCryptoCurrencies(searchQuery)
 
     fun getGlobalMarketCap() = currencyDao.getGlobalMarketCap()
 }

@@ -20,11 +20,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         private const val TAG = "MainViewModel"
     }
 
-    private val repository = CryptoCurrencyRepository(CryptoCurrencyDB.getDB(application).cryptoCurrencyDao())
+    private val repository =
+        CryptoCurrencyRepository(CryptoCurrencyDB.getDB(application).cryptoCurrencyDao())
     private val searchQueryLiveData = MutableLiveData("")
 
     val cryptoCurrencyLiveData = Transformations.switchMap(searchQueryLiveData) {
-        if (it.isNullOrEmpty()) repository.getAllCryptoCurrency() else repository.getAllCryptoCurrency(it)
+        if (it.isNullOrEmpty()) repository.getCryptoCurrencies() else repository.getCryptoCurrencies(it)
     }
 
     val globalMarketCapLiveData = repository.getGlobalMarketCap()
@@ -39,11 +40,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         searchQueryLiveData.value = searchQuery
     }
 
-    private var job: Job? = null
+    private var job = Job()
 
     fun loadCryptoCurrencyData(isRefresh: Boolean = false) {
-        job?.cancel()
-        job = viewModelScope.launch(Dispatchers.IO) {
+        job.cancel()
+        viewModelScope.launch(Dispatchers.IO + job) {
             _isLoading.postValue(cryptoCurrencyLiveData.value.isNullOrEmpty() || isRefresh)
             try {
                 val cryptoDataHolder = repository.getCryptoData()
